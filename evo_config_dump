@@ -1,0 +1,153 @@
+Notes:
+* Remember every RPM is in little endian order LSB/MSB as is anything > 1 byte
+* Stopped dumping at first access error (there could be more data)
+
+Dump of entire config / page 0x00
+00: 3131313131313131
+08: 3131313131313131
+
+Dump of entire config / page 0x01
+00: 3c15020000000000
+08: 0000ffffffffffff
+10: ffffffffffffffff
+18: ffffffffffffffff
+20: ffffffffffffff00
+28: 00
+
+Parsed Guess / page 0x01
+3c (Serial Timeout = 60s)
+15 (Motor Address = 0x15)
+02
+0000000000
+
+Dump of entire config / page 0x0a (10)
+00: 000002280a000127
+08: 02280a0401012701
+10: bd06000000000000
+18: 03280a0002007a0d
+20: 000200bd06000200
+28: 7a0d000200bd0600
+30: 02007a0d00020058
+38: 0208000c007a0d0c
+40: 001000280a100000
+48: 00bd0600000600e8
+50: 0306000800580201
+58: 7a0d015f0501280a
+60: 01d60600
+
+#IN1 3450 = 0d7a >> 7a0d
+#IN2 1375 = 055f >> 5f05
+#IN3 2600 = 0a28 >> 280a
+#IN4 1750 = 06d6 >> d606
+
+# 600 = 0258 >> 5802
+#1725 = 06bd >> bd06
+#1500 = 05dc >> dc05
+
+Parsed Guess / page 0x0a (10)
+00  (system state)
+00  (keypad status)
+02 280a (??prime LVB  02 isn't valid 0,3-15  @ 2600 RPM??)
+00 (??protocol: default??)
+01 27 02 280a (??freeze Protection enabled @ 39F for 2 hours @ 2600 RPM??)
+04 (??temporary stop duration default 4 min??)
+01 
+01 27 01 bd06  (??freeze Protection enabled @ 39F for 1 hours @ 1725 RPM?? - matches EVO users guide)
+00000000 (??HUA??)
+00 (Schedule Type: 0=clock; 1=timer)
+03 280a  (??3 minutes @ 2600 for prime??)
+
+(??Timer Mode??)
+00 0200 7a0d (2 hours @ 3450 RPM)
+00 0200 bd06 (2 hours @ 1725 RPM)
+00 0200 7a0d (2 hours @ 3450 RPM)
+00 0200 bd06 (2 hours @ 1725 RPM)
+00 0200 7a0d (2 hours @ 3450 RPM)
+00 0200 5802 (2 hours @ 600 RPM)
+
+(??Clock Mode??)
+0800 0c00 7a0d (08 to 12 @ 3450 RPM)
+0c00 1000 280a (12 to 16 @ 2600 RPM)
+1000 0000 bd06 (16 to 00 @ 1725 RPM)
+0000 0600 e803 (00 to 06 @ 1000 RPM)
+0600 0800 5802 (06 to 08 @  600 RPM)
+
+(Digital Input RPMs: confirmed)
+01 7a0d (IN1 enable @ 3450 RPM)
+01 5f05 (IN2 enable @ 1375 RPM)
+01 280a (IN3 enable @ 2600 RPM)
+01 d606 (IN4 enable @ 1750 RPM)
+
+00 (??)
+
+
+Dump of entire config / page 0x0b
+00: 05007a0d01000000
+08: 027a0d02be0a06d6
+10: 06027e040c000002
+18: 7a0d02220b063a07
+20: 02e2040c0000047a
+28: 0d04d606047e040c
+30: 000002b20c087e04
+38: 02b20c0c000018bd
+40: 0600000000000000
+48: 0000184c04000000
+50: 00000000000018bd
+58: 0600000000000000
+60: 0000187a0d000000
+68: 000000000000
+
+Parsed Guess / page 0x0b
+00: 05 (currently selected schedule)
+01: 00 7a0d 01 000000 (unknown; not prime speed! )
+    HR RPM  HR RPM  HR RPM  HR RPM  HR RPM
+08: 02 7a0d 02 be0a 06 d606 02 7e04 0c 0000 (Schedule A:1)
+17: 02 7a0d 02 220b 06 3a07 02 e204 0c 0000 (Schedule A:2)
+26: 04 7a0d 04 d606 04 7e04 0c 0000         (Schedule A:3)
+32: 02 b20c 08 7e04 02 b20c 0c 0000         (Schedule A:4)
+3e: 18 bd06 00 0000 00 0000 00 0000         (Schedule A:5)
+4a: 18 4c04 00 0000 00 0000 00 0000         (Schedule A:6)
+57: 18 bd06 00 0000 00 0000 00 0000         (Schedule A:7)
+62: 18 7a0d 00 0000 00 0000 00 0000         (Schedule A:8)
+
+#3450 = 0d7a >> 7a0d
+#2750 = 0abe >> be0a
+#1750 = 06d6 >> d606
+#1150 = 047e >> 7e04
+#2850 = 0b22 >> 220b
+#1850 = 073a >> 3a07
+#1250 = 04e2 >> e204
+#3250 = 0cb2 >> b20c
+#1725 = 06bd >> bd06
+#1100 = 044c >> 4c04
+
+Dump of entire config / page 0x0c
+00: 01007a0d01000000
+08: 027a0d04220b04ca
+10: 08080e0606000002
+18: 160d04be0a046608
+20: 08aa0506000002b2
+28: 0c045a0a049e0708
+30: 4605060000044e0c
+38: 04f609043a0706e2
+40: 0406000004ea0b04
+48: 920904d606067e04
+50: 06000004860b042e
+58: 09047206061a0406
+60: 0000027a0d04220b
+68: 04ca080e0e060486
+70: 0b062e0908720606
+78: 1a04
+
+Parsed Guess / page 0x0c
+01 (currently selected schedule)
+00 7a0d 01 000000 (unknown; not prime speed! )
+HR RPM  HR RPM  HR RPM  HR RPM  HR RPM
+02 7a0d 04 220b 04 ca08 08 0e06 06 0000 (Schedule B:1)
+02 160d 04 be0a 04 6608 08 aa05 06 0000 (Schedule B:2)
+02 b20c 04 5a0a 04 9e07 08 4605 06 0000 (Schedule B:3)
+04 4e0c 04 f609 04 3a07 06 e204 06 0000 (Schedule B:4)
+04 ea0b 04 9209 04 d606 06 7e04 06 0000 (Schedule B:5)
+04 860b 04 2e09 04 7206 06 1a04 06 0000 (Schedule B:6)
+02 7a0d 04 220b 04 ca08 0e 0e06         (Schedule B:7)
+04 860b 06 2e09 08 7206 06 1a04         (Schedule B:8)

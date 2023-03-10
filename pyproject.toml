@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vgmotor"
+dynamic = ["version", "readme"]
+authors = [
+    {name = "Michael Stovenour", email = "michael@stovenour.net"},
+]
+description = "Modbus Package for Regal Beloit EPC VGreen Motor family"
+requires-python = ">=3.9"
+license = {file = "LICENSE.txt"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "pymodbus>=3.2.0",
+    "pyserial>=3.5",
+    "pyserial-asyncio==0.6",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest < 5.0.0",
+  "pytest-cov[all]"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "vgmotor.__VERSION__"}
+readme = {file = "README.rst"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vgmotor*"]
+#exclude = ["foo.tests*"]
