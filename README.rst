@@ -2,7 +2,7 @@
 vgmotor
 *******
 
-Project description
+Project Description
 ===================
 
 This is a modbus package for the Regal Beloit EPC VGreen Motor family.
@@ -19,19 +19,19 @@ commands.
 The VGMotorBase and VGMotorGeneric classes implement read / command methods
 that should work with all vgreen motors.  The VGMotorEVO class implements
 config read/write methods that will *ONLY* work with the EVO motor.  DO NOT
-ATTEMPT TO WRIE THE CONFIG OF OTHER MOTORS WITH THE VGMotorEVO CLASS.  While
+ATTEMPT TO WRITE THE CONFIG OF OTHER MOTORS WITH THE VGMotorEVO CLASS.  While
 the only motor supported in the vgreen family is the EVO, more can be easliy
 added.
 
 Supported Modbus Functions
-    0x41: go()
-    0x42: stop()
-    0x43: status()
-    0x44: set_demand()
-    0x45: read_sensor()
-    0x46: read_id()
-    *0x64: read_config() / write_config()*
-    0x65: store_config()
+   - 0x41: go()
+   -  0x42: stop()
+   -  0x43: status()
+   -  0x44: set_demand()
+   -  0x45: read_sensor()
+   -  0x46: read_id()
+   -  *0x64: read_config() / write_config()*
+   -  0x65: store_config()
 
 NOTE:  0x64 is only supported for the EVO motor and implemented in the 
 VGMotorEVO class.
@@ -108,4 +108,4 @@ Test
 
 or ::
 
-   pytest --cov=vgreen --cov-report=term-missing --cov-branch
+   pytest --cov=vgmotor --cov-report=term-missing --cov-branch
