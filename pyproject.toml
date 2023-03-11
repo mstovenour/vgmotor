@@ -28,7 +28,7 @@ test = [
 
 [tool.setuptools.dynamic]
 version = {attr = "vgmotor.__VERSION__"}
-readme = {file = "README.rst"}
+readme = {file = "DESCRIPTION.rst"}
 
 [tool.setuptools.packages.find]
 where = ["."]

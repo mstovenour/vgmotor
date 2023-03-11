@@ -13,7 +13,7 @@ from pymodbus.client import ModbusSerialClient as ModbusClient
 from vgmotor.base import VGMotorBase
 
 from pymodbus import pymodbus_apply_logging_config
-pymodbus_apply_logging_config()  #Default level: WARNING
+pymodbus_apply_logging_config(logging.WARNING)  #Default level: DEBUG
 log = logging.getLogger()
 # log.setLevel(logging.DEBUG)
 # log.setLevel(logging.CRITICAL)
